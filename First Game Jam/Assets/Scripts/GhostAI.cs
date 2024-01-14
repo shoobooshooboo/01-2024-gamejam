@@ -1,13 +1,20 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class script : MonoBehaviour
 {
     [SerializeField] Rigidbody2D player;
     [SerializeField] Vector2 respawn;
+    private BoolHolder boolHolder;
     public float despawnDistance;
+    public GameObject fearText;
+    public GameObject fearBar;
+    public Slider fearSlider;
     private Rigidbody2D rb;
     public float speed = 5;
     public int respawnDelay = 500;
@@ -15,11 +22,17 @@ public class script : MonoBehaviour
     private char direction = 'n'; //u = up, d = down, l = left, r = right, n = none
     private char prevDirection = 'n';
     private bool targetingPlayer = false;
+    private float baseSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        fearBar.SetActive(false);
+        baseSpeed = player.mass;
+        boolHolder = GetComponentInParent<BoolHolder>();
+        boolHolder.playerFrozen = false;
+        Debug.Log(boolHolder.playerFrozen);
     }
 
     // Update is called once per frame
@@ -108,11 +121,17 @@ public class script : MonoBehaviour
         }
 
         //targeting player. moving straight towards them
-        if (targetingPlayer)
+        if (targetingPlayer || boolHolder.playerFrozen)
         {
             float xDistance = player.position.x - transform.position.x,
                   yDistance = player.position.y - transform.position.y,
                   totalDistance = Mathf.Sqrt(xDistance*xDistance + yDistance*yDistance);
+
+            if (boolHolder.playerFrozen)
+            {
+                rb.velocity = new Vector2(xDistance, yDistance).normalized * speed;
+                return;
+            }
 
             //player escapes ghost
             if (totalDistance >= despawnDistance)
@@ -128,6 +147,20 @@ public class script : MonoBehaviour
                 respawnTimer = 1;
                 targetingPlayer = false;
                 transform.position = new Vector3(100f, 100f, transform.position.z);
+                if(fearSlider.value == 0f)
+                {
+                    fearBar.SetActive(true);
+                }
+                //update fear bar
+                fearSlider.value += .25f;
+                //reduce player's speed
+                player.mass =  baseSpeed * (1 - fearSlider.value);
+                if ((fearSlider.value >= 1f))
+                {
+                    fearSlider.value = 1f;
+                    fearText.GetComponent<TextMeshProUGUI>().text = "FROZEN";
+                    boolHolder.playerFrozen = true;
+                }
                 //stuff that happens when player is hit
                 //we're talking SFX. FEAR BAR INCREASE. ANIMATIONS.
             }

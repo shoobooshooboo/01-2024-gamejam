@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerInput playerInput;
-    public float moveSpeed = 5f;
     public Rigidbody2D rb;
     private Vector2 movement;
 
@@ -23,6 +22,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = movement * moveSpeed;
+        rb.velocity = movement * rb.mass;
     }    
 }
