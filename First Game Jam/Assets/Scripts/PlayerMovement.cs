@@ -7,11 +7,13 @@ public class PlayerMovement : MonoBehaviour
 {
     public PlayerInput playerInput;
     public Rigidbody2D rb;
+    private BoolHolder boolHolder;
     private Vector2 movement;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        boolHolder = GetComponentInParent<BoolHolder>();
     }
 
     private void OnMove(InputValue inputValue)
@@ -22,6 +24,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = movement * rb.mass;
+        rb.velocity = movement * boolHolder.playerSpeed;
     }    
 }

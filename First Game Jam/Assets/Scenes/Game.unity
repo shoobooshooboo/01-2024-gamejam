@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 2441939}
   - component: {fileID: 2441938}
   - component: {fileID: 2441937}
+  - component: {fileID: 2441941}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -218,13 +219,27 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1091024180}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 855709430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &2441941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a18f30039e8d45e4f8828c81047bee45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fearSlider: {fileID: 1091024179}
+  sliderFill: {fileID: 428845736}
 --- !u!1 &12797292
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,9 +431,6 @@ MonoBehaviour:
   player: {fileID: 222711068}
   respawn: {x: 11.76, y: 22.46}
   despawnDistance: 7
-  fearText: {fileID: 801905223}
-  fearBar: {fileID: 2441936}
-  fearSlider: {fileID: 1091024181}
   speed: 3
   respawnDelay: 500
 --- !u!212 &26044885
@@ -685,8 +697,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00024998188, y: 0.00014999509, z: 0}
-    m_Extent: {x: 0.99745, y: 0.99735, z: 0}
+    m_Center: {x: -0.00034999847, y: 0.00009998679, z: 0}
+    m_Extent: {x: 0.99715, y: 0.9977, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1662,13 +1674,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 222711067}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1248, y: 12.7084, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.067947626, y: 0.34041023, z: 0.1173094}
   m_LocalScale: {x: 1.3959525, y: 1.1527346, z: 4.6217847}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 454581712}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 855709430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &222711072
 MonoBehaviour:
@@ -4725,8 +4737,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.00014999509, y: 0.000050008297, z: 0}
-    m_Extent: {x: 0.99735, y: 0.99785, z: 0}
+    m_Center: {x: 0.00014999509, y: 0.00025001168, z: 0}
+    m_Extent: {x: 0.99755, y: 0.99805, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5304,7 +5316,7 @@ GameObject:
   - component: {fileID: 855709430}
   - component: {fileID: 855709431}
   m_Layer: 0
-  m_Name: Enemies
+  m_Name: Entities and Icons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5327,6 +5339,8 @@ Transform:
   - {fileID: 1529036458}
   - {fileID: 26044886}
   - {fileID: 862323020}
+  - {fileID: 222711071}
+  - {fileID: 2441940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &855709431
@@ -5342,6 +5356,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFrozen: 0
+  fearSlider: 0
+  playerSpeed: 5
 --- !u!1 &856191847
 GameObject:
   m_ObjectHideFlags: 0
@@ -5408,8 +5424,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0, y: -0.00014999509, z: 0}
-    m_Extent: {x: 0.997, y: 0.99755, z: 0}
+    m_Center: {x: -0.00040000677, y: 0.000100016594, z: 0}
+    m_Extent: {x: 0.9982, y: 0.9979, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5513,9 +5529,6 @@ MonoBehaviour:
   player: {fileID: 222711068}
   respawn: {x: -20.52, y: 22.49}
   despawnDistance: 7
-  fearText: {fileID: 801905223}
-  fearBar: {fileID: 2441936}
-  fearSlider: {fileID: 1091024181}
   speed: 3
   respawnDelay: 500
 --- !u!212 &862323019
@@ -5688,9 +5701,6 @@ MonoBehaviour:
   player: {fileID: 222711068}
   respawn: {x: -20.584, y: 3.3}
   despawnDistance: 7
-  fearText: {fileID: 801905223}
-  fearBar: {fileID: 2441936}
-  fearSlider: {fileID: 1091024181}
   speed: 3
   respawnDelay: 500
 --- !u!50 &862928821
@@ -7008,7 +7018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 264.6, y: 230.3}
+  m_AnchoredPosition: {x: 264.59985, y: 230.29982}
   m_SizeDelta: {x: 184.42, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1091024181
@@ -8618,8 +8628,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00045001507, y: -0.00064998865, z: 0}
-    m_Extent: {x: 0.99785, y: 0.99785, z: 0}
+    m_Center: {x: -0.00029999018, y: 0, z: 0}
+    m_Extent: {x: 0.9974, y: 0.9982, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -9585,9 +9595,6 @@ MonoBehaviour:
   player: {fileID: 222711068}
   respawn: {x: 14.15, y: 3.3}
   despawnDistance: 7
-  fearText: {fileID: 801905223}
-  fearBar: {fileID: 2441936}
-  fearSlider: {fileID: 1091024181}
   speed: 3
   respawnDelay: 500
 --- !u!212 &1529036457
@@ -12658,8 +12665,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 222711071}
   - {fileID: 1212643092}
-  - {fileID: 2441940}
   - {fileID: 2044706864}
   - {fileID: 855709430}

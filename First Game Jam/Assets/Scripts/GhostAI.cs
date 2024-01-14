@@ -12,9 +12,6 @@ public class script : MonoBehaviour
     [SerializeField] Vector2 respawn;
     private BoolHolder boolHolder;
     public float despawnDistance;
-    public GameObject fearText;
-    public GameObject fearBar;
-    public Slider fearSlider;
     private Rigidbody2D rb;
     public float speed = 5;
     public int respawnDelay = 500;
@@ -28,11 +25,9 @@ public class script : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        fearBar.SetActive(false);
-        baseSpeed = player.mass;
         boolHolder = GetComponentInParent<BoolHolder>();
+        baseSpeed = boolHolder.playerSpeed;
         boolHolder.playerFrozen = false;
-        Debug.Log(boolHolder.playerFrozen);
     }
 
     // Update is called once per frame
@@ -147,22 +142,13 @@ public class script : MonoBehaviour
                 respawnTimer = 1;
                 targetingPlayer = false;
                 transform.position = new Vector3(100f, 100f, transform.position.z);
-                if(fearSlider.value == 0f)
-                {
-                    fearBar.SetActive(true);
-                }
                 //update fear bar
-                fearSlider.value += .25f;
+                boolHolder.fearSlider += .25f;
                 //reduce player's speed
-                player.mass =  baseSpeed * (1 - fearSlider.value);
-                if ((fearSlider.value >= 1f))
-                {
-                    fearSlider.value = 1f;
-                    fearText.GetComponent<TextMeshProUGUI>().text = "FROZEN";
-                    boolHolder.playerFrozen = true;
-                }
+                boolHolder.playerSpeed =  baseSpeed * (1 - boolHolder.fearSlider);
+                
                 //stuff that happens when player is hit
-                //we're talking SFX. FEAR BAR INCREASE. ANIMATIONS.
+                //we're talking SFX. ANIMATIONS.
             }
             else
             {
