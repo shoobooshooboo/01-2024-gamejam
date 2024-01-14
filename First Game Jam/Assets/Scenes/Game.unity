@@ -382,6 +382,7 @@ GameObject:
   - component: {fileID: 26044885}
   - component: {fileID: 26044884}
   - component: {fileID: 26044883}
+  - component: {fileID: 26044887}
   m_Layer: 0
   m_Name: Ghost (2)
   m_TagString: Untagged
@@ -474,7 +475,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1b2d72c70c4f33b4f936d91df152ccc2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c8cc3ae702b3604881e1f953f3a8d96, type: 3}
   m_Color: {r: 0.13725491, g: 0.60784316, b: 0.68235296, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -495,12 +496,33 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 14.816853, y: 10.09201, z: 0.1843094}
-  m_LocalScale: {x: 0.15095352, y: 0.121065386, z: 0.1252}
+  m_LocalScale: {x: 1, y: 1, z: 0.1252}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 978878749}
   m_Father: {fileID: 855709430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &26044887
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26044882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42a2a4ae87577214bb6333e988be5f6c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &54780115
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,8 +719,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.000050008297, y: 0, z: 0}
-    m_Extent: {x: 0.99755, y: 0.9978, z: 0}
+    m_Center: {x: -0.00020000339, y: 0, z: 0}
+    m_Extent: {x: 0.9978, y: 0.998, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1736,6 +1758,7 @@ GameObject:
   - component: {fileID: 222711073}
   - component: {fileID: 222711072}
   - component: {fileID: 222711074}
+  - component: {fileID: 222711075}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1806,7 +1829,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.7, y: 0.78}
+    oldSize: {x: 2.54, y: 2.4}
     newSize: {x: 0.7, y: 0.78}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1856,7 +1879,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 25cf7ff9a64cefa4b8bcdf3a03e20180, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6a7a97c8416145944888a28d6cad3523, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1947,6 +1970,27 @@ MonoBehaviour:
   ghost2: {fileID: 1529036458}
   ghost3: {fileID: 26044886}
   ghost4: {fileID: 862323020}
+--- !u!95 &222711075
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222711067}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 65677a3756edad24c885036ec5b1427f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &231643921
 GameObject:
   m_ObjectHideFlags: 0
@@ -5059,8 +5103,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00015002489, y: -0.000049978495, z: 0}
-    m_Extent: {x: 0.99785, y: 0.99805, z: 0}
+    m_Center: {x: -0.00034999847, y: -0.00009998679, z: 0}
+    m_Extent: {x: 0.99715, y: 0.99740005, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5769,8 +5813,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00034999847, y: 0.00014999509, z: 0}
-    m_Extent: {x: 0.99765, y: 0.99724996, z: 0}
+    m_Center: {x: -0.00024998188, y: -0.000049978495, z: 0}
+    m_Extent: {x: 0.99755, y: 0.99735, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5825,6 +5869,7 @@ GameObject:
   - component: {fileID: 862323019}
   - component: {fileID: 862323018}
   - component: {fileID: 862323017}
+  - component: {fileID: 862323021}
   m_Layer: 0
   m_Name: Ghost (3)
   m_TagString: Untagged
@@ -5917,7 +5962,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1b2d72c70c4f33b4f936d91df152ccc2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c8cc3ae702b3604881e1f953f3a8d96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5938,12 +5983,33 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -17.463148, y: 10.12201, z: 0.1843094}
-  m_LocalScale: {x: 0.15095352, y: 0.121065386, z: 0.1252}
+  m_LocalScale: {x: 1, y: 1, z: 0.1252}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1511127973}
   m_Father: {fileID: 855709430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &862323021
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862323016}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42a2a4ae87577214bb6333e988be5f6c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &862928817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5956,6 +6022,7 @@ GameObject:
   - component: {fileID: 862928818}
   - component: {fileID: 862928820}
   - component: {fileID: 862928821}
+  - component: {fileID: 862928822}
   m_Layer: 0
   m_Name: Ghost
   m_TagString: Untagged
@@ -6004,7 +6071,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1b2d72c70c4f33b4f936d91df152ccc2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c8cc3ae702b3604881e1f953f3a8d96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6025,7 +6092,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -17.527147, y: -9.067989, z: 0.1843094}
-  m_LocalScale: {x: 0.15095352, y: 0.121065386, z: 0.1252}
+  m_LocalScale: {x: 1, y: 1, z: 0.1252}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1236072810}
@@ -6075,6 +6142,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &862928822
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862928817}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42a2a4ae87577214bb6333e988be5f6c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &882761323
 GameObject:
   m_ObjectHideFlags: 0
@@ -8973,8 +9061,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.00014999509, y: -0.00014999509, z: 0}
-    m_Extent: {x: 0.99755, y: 0.99805, z: 0}
+    m_Center: {x: 0.00034999847, y: -0.000100016594, z: 0}
+    m_Extent: {x: 0.99775, y: 0.9978, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -9891,6 +9979,7 @@ GameObject:
   - component: {fileID: 1529036457}
   - component: {fileID: 1529036456}
   - component: {fileID: 1529036455}
+  - component: {fileID: 1529036459}
   m_Layer: 0
   m_Name: Ghost (1)
   m_TagString: Untagged
@@ -9983,7 +10072,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 1b2d72c70c4f33b4f936d91df152ccc2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8c8cc3ae702b3604881e1f953f3a8d96, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -10004,12 +10093,33 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 17.206852, y: -9.067989, z: 0.1843094}
-  m_LocalScale: {x: 0.15095352, y: 0.121065386, z: 0.1252}
+  m_LocalScale: {x: 1, y: 1, z: 0.1252}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 746868158}
   m_Father: {fileID: 855709430}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1529036459
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1529036454}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42a2a4ae87577214bb6333e988be5f6c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1539515802
 GameObject:
   m_ObjectHideFlags: 0
