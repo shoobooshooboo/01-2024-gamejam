@@ -28,12 +28,18 @@ public class FearSlider : MonoBehaviour
         if(slider.value >= 1f){
             fearText.text = "FROZEN";
         }
-        if (boolHolder.fearSlider > slider.value)
+        if ((int)(boolHolder.fearSlider * 10000) > (int)(slider.value * 10000))
         {
             if(slider.value == 0f) {
                 fearSlider.SetActive(true);
             }
             slider.value += .01f;
         }
+        else if((int)(boolHolder.fearSlider * 10000) < (int)(slider.value * 10000))
+        {
+            slider.value -= .005f;
+        }
+        //Debug.Log("direct value: " + slider.value);
+        //Debug.Log("held value: " + boolHolder.fearSlider);
     }
 }

@@ -20,6 +20,9 @@ public class script : MonoBehaviour
     private char prevDirection = 'n';
     private bool targetingPlayer = false;
     private float baseSpeed;
+    private int currentLives;
+    private int iFrames;
+    private bool defeated;
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +31,44 @@ public class script : MonoBehaviour
         boolHolder = GetComponentInParent<BoolHolder>();
         baseSpeed = boolHolder.playerSpeed;
         boolHolder.playerFrozen = false;
+        iFrames = 0;
+        currentLives = boolHolder.ghostLifeCount;
+        defeated = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (defeated)
+        {
+            return;
+        }
+        //checks if ghost got hit
+        if (Mathf.Abs(Vector3.Distance(player.position, transform.position)) < boolHolder.maxOuterLight && iFrames == 0 & boolHolder.fwoosh)
+        {
+            currentLives--;
+            iFrames = 250;
+
+            //Debug.Log("hit ghost");
+            if(currentLives == 0)
+            {
+                transform.position = new Vector3(100, 100, 100);
+                defeated = true;
+                boolHolder.defeatedCount++;
+            }
+        }
+
+        else if (iFrames > 0)
+        {
+            iFrames--;
+            rb.velocity = new Vector2(rb.position.x - player.position.x, rb.position.y - player.position.y).normalized * speed;
+            if(iFrames == 0)
+            {
+                respawnTimer = respawnDelay;
+            }
+            return;
+        }
+
         RaycastHit2D upRay;
         RaycastHit2D downRay;
         RaycastHit2D leftRay;

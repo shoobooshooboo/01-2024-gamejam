@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerInput playerInput;
-    public Rigidbody2D rb;
+    private Rigidbody2D rb;
     private BoolHolder boolHolder;
     private Vector2 movement;
 
