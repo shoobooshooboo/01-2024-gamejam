@@ -10,8 +10,10 @@ public class script : MonoBehaviour
 {
     [SerializeField] Rigidbody2D player;
     [SerializeField] Vector2 respawn;
+    private Animator anim;
     private BoolHolder boolHolder;
     public float despawnDistance;
+    public MainMenu mainMenu;
     private Rigidbody2D rb;
     public float speed = 5;
     public int respawnDelay = 500;
@@ -23,12 +25,23 @@ public class script : MonoBehaviour
     private int currentLives;
     private int iFrames;
     private bool defeated;
+    public Transform listenerTransform;
+    public AudioSource monsterSounds;
+    public AudioClip deathSound;
+    public AudioClip ambientSound;
+    public AudioClip monsterAggro;
+    public AudioClip midChase;
+    
+    private float minDist = 1;
+    private float maxDist = 8;
+    private bool inPlace = false;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         boolHolder = GetComponentInParent<BoolHolder>();
+        anim = GetComponent<Animator>();
         baseSpeed = boolHolder.playerSpeed;
         boolHolder.playerFrozen = false;
         iFrames = 0;
@@ -39,6 +52,29 @@ public class script : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (boolHolder.playerFrozen)
+        {
+            if(!inPlace)
+            {
+                transform.position = player.position + (respawn.normalized * 8);
+                boolHolder.ghostsInPlace++;
+                inPlace = true;
+            }
+            if(boolHolder.ghostsInPlace == 4)
+            {
+                float xDistance = player.position.x - transform.position.x,
+                  yDistance = player.position.y - transform.position.y;
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(yDistance, -xDistance));
+                rb.velocity = new Vector2(xDistance, yDistance).normalized;
+
+                if(new Vector2(xDistance, yDistance).magnitude < 2f)
+                {
+                    mainMenu.LOSE();
+                }
+            }
+            return;
+        }
+
         if (defeated)
         {
             return;
@@ -48,21 +84,28 @@ public class script : MonoBehaviour
         {
             currentLives--;
             iFrames = 250;
-
             //Debug.Log("hit ghost");
+            boolHolder.monsterChase = false;
             if(currentLives == 0)
             {
                 transform.position = new Vector3(100, 100, 100);
                 defeated = true;
                 boolHolder.defeatedCount++;
+                if (boolHolder == true) { }
+
+                float dist = Vector3.Distance(transform.position, listenerTransform.position);
+                monsterSounds.volume = 1;
+                monsterSounds.PlayOneShot(deathSound);
             }
         }
 
         else if (iFrames > 0)
         {
             iFrames--;
+            anim.SetBool("playerSpotted", false);
             rb.velocity = new Vector2(rb.position.x - player.position.x, rb.position.y - player.position.y).normalized * speed;
-            if(iFrames == 0)
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(rb.velocity.y, -rb.velocity.x));
+            if (iFrames == 0)
             {
                 respawnTimer = respawnDelay;
             }
@@ -114,7 +157,10 @@ public class script : MonoBehaviour
             || leftRay.rigidbody == player && leftRay.distance < (despawnDistance * 2 / 3)
             || rightRay.rigidbody == player && rightRay.distance < (despawnDistance * 2 / 3))
         {
+
             targetingPlayer = true;
+            monsterSounds.volume = 1;
+            monsterSounds.PlayOneShot(monsterAggro);
         }
 
         while (direction == 'n' && !targetingPlayer)
@@ -152,15 +198,18 @@ public class script : MonoBehaviour
         }
 
         //targeting player. moving straight towards them
-        if (targetingPlayer || boolHolder.playerFrozen)
+        if (targetingPlayer)
         {
             float xDistance = player.position.x - transform.position.x,
                   yDistance = player.position.y - transform.position.y,
                   totalDistance = Mathf.Sqrt(xDistance*xDistance + yDistance*yDistance);
+            anim.SetBool("playerSpotted", true);
 
             if (boolHolder.playerFrozen)
             {
                 rb.velocity = new Vector2(xDistance, yDistance).normalized * speed;
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(yDistance, -xDistance));
+                boolHolder.monsterChase = false;
                 return;
             }
 
@@ -170,33 +219,61 @@ public class script : MonoBehaviour
                 respawnTimer = 1;
                 targetingPlayer = false;
                 transform.position = new Vector3(100f, 100f, transform.position.z);
+                boolHolder.monsterChase = false;
+                anim.SetBool("playerSpotted", false);
             }
 
             //ghost catches player
             else if (totalDistance < 1f)
             {
+                boolHolder.monsterChase = false;
                 respawnTimer = 1;
+                anim.SetBool("playerSpotted", false);
                 targetingPlayer = false;
                 transform.position = new Vector3(100f, 100f, transform.position.z);
+                boolHolder.playerHit = true;
                 //update fear bar
                 boolHolder.fearSlider += .25f;
                 //reduce player's speed
                 boolHolder.playerSpeed =  baseSpeed * (1 - boolHolder.fearSlider);
-                
-                //stuff that happens when player is hit
-                //we're talking SFX. ANIMATIONS.
             }
             else
             {
+                if (!monsterSounds.isPlaying)
+                {
+                    monsterSounds.volume = 1f;
+                    monsterSounds.PlayOneShot(midChase);
+                }
+                boolHolder.monsterChase = true;
+                transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(yDistance, -xDistance));
                 rb.velocity = new Vector2(xDistance, yDistance).normalized * speed;
             }
             return;
         }
 
+        if (!monsterSounds.isPlaying)
+        {
+            monsterSounds.PlayOneShot(ambientSound);
+            float dist = Vector3.Distance(transform.position, listenerTransform.position);
+
+            if (dist < minDist)
+            {
+                monsterSounds.volume = 1;
+            }
+            else if (dist > maxDist)
+            {
+                monsterSounds.volume = 0;
+            }
+            else
+            {
+                monsterSounds.volume = 1 - ((dist - minDist) / (maxDist - minDist));
+            }
+        }
         //check if ghost hit the wall yet
         //move towards wall
         if (direction == 'u')
         {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(1, 0));
             if (Physics2D.Raycast(transform.position, Vector2.up).distance < 1f)
             {
                 prevDirection = 'd';
@@ -206,6 +283,7 @@ public class script : MonoBehaviour
         }
         else if (direction == 'd')
         {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(-1, 0));
             if (Physics2D.Raycast(transform.position, Vector2.down).distance < 1f)
             {
                 prevDirection = 'u';
@@ -215,6 +293,7 @@ public class script : MonoBehaviour
         }
         else if (direction == 'l')
         {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(0, 1));
             if (Physics2D.Raycast(transform.position, Vector2.left).distance < 1f)
             {
                 prevDirection = 'r';
@@ -224,6 +303,7 @@ public class script : MonoBehaviour
         }
         else /*direction == 'r'*/
         {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(0, -1));
             if (Physics2D.Raycast(transform.position, Vector2.right).distance < 1f)
             {
                 prevDirection = 'l';

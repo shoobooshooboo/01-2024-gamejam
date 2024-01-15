@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMove(InputValue inputValue)
     {
+        if (boolHolder.playerFrozen)
+        {
+            return;
+        }
         movement = inputValue.Get<Vector2>();
         if (movement.magnitude == 0)
         {
@@ -28,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, new Vector2(-movement.y, movement.x));
             anim.SetBool("isMoving", true);
         }
     }

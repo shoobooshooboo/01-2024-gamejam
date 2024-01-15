@@ -25,19 +25,25 @@ public class FearSlider : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(slider.value >= 1f){
+        if (slider.value >= 1f)
+        {
             fearText.text = "FROZEN";
+            boolHolder.playerFrozen = true;
         }
-        if ((int)(boolHolder.fearSlider * 10000) > (int)(slider.value * 10000))
+        else
         {
-            if(slider.value == 0f) {
-                fearSlider.SetActive(true);
+            if ((int)(boolHolder.fearSlider * 100000) > (int)(slider.value * 100000))
+            {
+                if (slider.value == 0f)
+                {
+                    fearSlider.SetActive(true);
+                }
+                slider.value += .01f;
             }
-            slider.value += .01f;
-        }
-        else if((int)(boolHolder.fearSlider * 10000) < (int)(slider.value * 10000))
-        {
-            slider.value -= .005f;
+            else if ((int)(boolHolder.fearSlider * 100000) < (int)(slider.value * 100000))
+            {
+                slider.value -= .005f;
+            }
         }
         //Debug.Log("direct value: " + slider.value);
         //Debug.Log("held value: " + boolHolder.fearSlider);

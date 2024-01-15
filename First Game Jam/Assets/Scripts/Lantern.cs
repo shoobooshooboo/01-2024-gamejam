@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
@@ -17,12 +18,17 @@ public class Lantern : MonoBehaviour
     public Transform ghost2;
     public Transform ghost3;
     public Transform ghost4;
+    public GameObject brightLamp;
+    public GameObject dimLamp;
+    public TextMeshProUGUI cooldownTimer;
     private BoolHolder boolHolder;
     private float defaultOuterLight;
     private float defaultInnerLight;
     private Light2D playerLight;
     private int cooldown;
     private Rigidbody2D rb;
+    private int lightOutCount;
+    private int regrow;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,13 +65,52 @@ public class Lantern : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //Debug.Log(boolHolder.playerHit);
+        if (boolHolder.playerHit)
+        {
+            boolHolder.playerHit = false;
+            lightOutCount = 30;
+        }
+        if (boolHolder.playerFrozen || lightOutCount > 0)
+        {
+            playerLight.pointLightInnerRadius -= (maxInnerLight) / 30;
+            playerLight.pointLightOuterRadius -= (maxOuterLight) / 30;
+            lightOutCount--;
+            if(lightOutCount == 0)
+            {
+                regrow = 100;
+                playerLight.pointLightInnerRadius = 0;
+                playerLight.pointLightOuterRadius = 0;
+            }
+            return;
+        }
+        if (regrow > 0)
+        {
+            playerLight.pointLightInnerRadius += (defaultInnerLight) / 100;
+            playerLight.pointLightOuterRadius += (defaultOuterLight) / 100;
+            regrow--;
+            return;
+        }
+        if(boolHolder.oilCount > 0)
+        {
+            brightLamp.SetActive(true);
+        }
+        else
+        {
+            brightLamp.SetActive(false);
+        }
         if (boolHolder.oilCount > maxOilCount)
         {
             boolHolder.oilCount = maxOilCount;
         }
         if (cooldown > 0)
         {
+            cooldownTimer.text = "" + ((cooldown / 50) + 1);
             cooldown--;
+        }
+        else
+        {
+            cooldownTimer.text = "";
         }
         if (boolHolder.fwoosh)
         {

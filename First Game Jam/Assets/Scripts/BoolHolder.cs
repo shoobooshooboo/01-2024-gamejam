@@ -11,13 +11,17 @@ public class BoolHolder : MonoBehaviour
     public int ghostLifeCount = 3;
     public int maxOuterLight = 5;
     public int maxInnerLight = 3;
+    public bool monsterChase;
     public bool fwoosh;
     public int oilCount;
     public int defeatedCount;
+    public int ghostsInPlace;
+    public bool playerHit = false;
 
     private void Start()
     {
         fwoosh = false;
+        monsterChase = false;
         defeatedCount = 0;
         oilCount = 1;
     }
@@ -27,8 +31,9 @@ public class BoolHolder : MonoBehaviour
         if (fearSlider > 1f)
         {
             fearSlider = 1f;
+            playerFrozen = true;
         }
-        if(fearSlider < 0f) {
+        else if(fearSlider < 0f) {
             fearSlider = 0f;
         }
         if (playerSpeed < 0f) 
@@ -37,7 +42,7 @@ public class BoolHolder : MonoBehaviour
         }
         if(defeatedCount == 4) 
         {
-            mainMenu.EndGame();
+            mainMenu.WIN();
         }
     }
 }
